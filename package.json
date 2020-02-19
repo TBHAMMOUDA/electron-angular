@@ -1,0 +1,65 @@
+{
+  "name": "electron-angular",
+  "version": "0.1.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+	
+	"electron": "set ELECTRON_DISABLE_SECURITY_WARNINGS=true && set ELECTRON_START_URL=http://localhost:4200/ && electron .",
+    "electron-build": "ng build --prod && electron .",
+
+    "package-win": "ng build --prod --base-href ./ && electron-packager . TbhApp --overwrite --asar --platform=win32 --arch=ia32 --icon=dist/assets/images/gmao.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"TBH App\"",
+    "package-mac": "ng build --prod --base-href ./ && electron-packager . TbhApp --overwrite --asar --platform=darwin --arch=x64 --icon=dist/assets/icons/mac/icon.icns --prune=true --out=release-builds --darwinDarkModeSupport=true",
+    "package-linux": " ng build --prod --base-href ./ && electron-packager . TbhApp --overwrite --asar --platform=linux --arch=x64 --icon=dist/assets/images/gmao.png --prune=true --out=release-builds",
+   
+    "create-installer-mac": "electron-installer-dmg ./release-builds/app-darwin-x64/TbhApp.app TbhApp --out=release-builds --overwrite --icon=dist/assets/icons/mac/icon.icns",
+    "create-installer-win": "node installers/windows/createinstaller.js",
+    "create-debian-installer": "electron-installer-debian --src release-builds/electron-tutorial-app-linux-x64/ --arch amd64 --config debian.json",
+   
+    "relese-win": "npm run package-win && npm run create-installer-win",
+    "relese-linux": "npm run package-linux && npm run create-debian-installer",
+    "relese-mac": "npm run package-mac && npm run create-installer-mac"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~9.0.1",
+    "@angular/common": "~9.0.1",
+    "@angular/compiler": "~9.0.1",
+    "@angular/core": "~9.0.1",
+    "@angular/forms": "~9.0.1",
+    "@angular/platform-browser": "~9.0.1",
+    "@angular/platform-browser-dynamic": "~9.0.1",
+    "@angular/router": "~9.0.1",
+    "rxjs": "~6.5.4",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.10.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.900.2",
+    "@angular/cli": "~9.0.2",
+    "@angular/compiler-cli": "~9.0.1",
+    "@angular/language-service": "~9.0.1",
+    "@types/jasmine": "~3.5.0",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^5.1.2",
+    "electron": "^8.0.1",
+    "jasmine-core": "~3.5.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~4.3.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage-istanbul-reporter": "~2.1.0",
+    "karma-jasmine": "~2.0.1",
+    "karma-jasmine-html-reporter": "^1.4.2",
+    "protractor": "~5.4.3",
+    "ts-node": "~8.3.0",
+    "tslint": "~5.18.0",
+    "typescript": "~3.7.5"
+  }
+}
